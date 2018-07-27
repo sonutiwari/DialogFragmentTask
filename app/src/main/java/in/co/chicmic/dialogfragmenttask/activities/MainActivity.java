@@ -4,6 +4,7 @@ package in.co.chicmic.dialogfragmenttask.activities;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import in.co.chicmic.dialogfragmenttask.R;
 import in.co.chicmic.dialogfragmenttask.fragments.dialogs.CustomInputDialog;
@@ -25,5 +26,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showSum(double pSum) {
+    }
+
+    @Override
+    public void isInputFragmentRunning(boolean status) {
+        Toast.makeText(this, "status", Toast.LENGTH_SHORT).show();
     }
 }

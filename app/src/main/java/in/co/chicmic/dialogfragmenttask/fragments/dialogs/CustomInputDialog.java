@@ -13,13 +13,15 @@ import java.util.Locale;
 
 import in.co.chicmic.dialogfragmenttask.R;
 import in.co.chicmic.dialogfragmenttask.interfaces.AskForSumInterface;
+import in.co.chicmic.dialogfragmenttask.interfaces.ShowSumInterface;
 import in.co.chicmic.dialogfragmenttask.utilities.AppConstants;
 
 public class CustomInputDialog extends DialogFragment
         implements SumFragment.SumFragmentListener, AskForSumInterface
-        , InputFragment.InputFragmentListener {
+        , InputFragment.InputFragmentListener, ShowSumInterface {
 
     private TextView mSumTextView;
+    private double mSum;
 
     public static CustomInputDialog newInstance() {
         return new CustomInputDialog();
@@ -55,15 +57,28 @@ public class CustomInputDialog extends DialogFragment
     }
 
     public void showSum(double pSum) {
+        InputFragment fragment = InputFragment.newInstance(this);
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.GET_SUM, AppConstants.GET_SUM);
+        fragment.setArguments(bundle);
         this.getChildFragmentManager()
                 .beginTransaction()
-                .replace(R.id.frame, InputFragment.newInstance(this))
+                .replace(R.id.frame, fragment)
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
                 .commit();
+        mSum = pSum;
+    }
+
+    @Override
+    public void show() {
         mSumTextView
                 .setText(String.format(Locale.ENGLISH
-                        , "%s%f", getString(R.string.sum_message), pSum));
+                        , "%s%f", getString(R.string.sum_message), mSum));
         mSumTextView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void isInputFragmentRunning(boolean status) {
+
+    }
 }

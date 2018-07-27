@@ -5,18 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import in.co.chicmic.dialogfragmenttask.R;
 import in.co.chicmic.dialogfragmenttask.interfaces.AskForSumInterface;
+import in.co.chicmic.dialogfragmenttask.interfaces.ShowSumInterface;
 
 public class InputFragment extends Fragment {
 
     private static AskForSumInterface mAskForSumInterface;
+    private static ShowSumInterface mShowSumInterface;
 
     public InputFragment() {
         // Required empty public constructor
@@ -24,6 +26,7 @@ public class InputFragment extends Fragment {
 
     public static InputFragment newInstance(CustomInputDialog pDialog) {
         mAskForSumInterface = pDialog;
+        mShowSumInterface = pDialog;
         return new InputFragment();
     }
 
@@ -37,6 +40,10 @@ public class InputFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater pInflater, ViewGroup pContainer,
                              Bundle pSavedInstanceState) {
         // Inflate the layout for this fragment
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            mShowSumInterface.show();
+        }
         View view = pInflater.inflate(R.layout.fragment_input, pContainer, false);
         Button nextButton = view.findViewById(R.id.btn_next);
         final TextInputEditText firstNumberTextInputEditText
@@ -65,7 +72,7 @@ public class InputFragment extends Fragment {
     public void onAttach(Context pContext) {
         super.onAttach(pContext);
         if (pContext instanceof InputFragmentListener) {
-            Log.d("", getString(R.string.initialize_listener));
+            // todo
         } else {
             throw new RuntimeException(pContext.toString()
                     + getString(R.string.must_implement));
@@ -79,5 +86,6 @@ public class InputFragment extends Fragment {
 
 
     public interface InputFragmentListener {
+        void isInputFragmentRunning(boolean status);
     }
 }
