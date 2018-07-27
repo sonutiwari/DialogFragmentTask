@@ -76,9 +76,4 @@ public class CustomInputDialog extends DialogFragment
                         , "%s%f", getString(R.string.sum_message), mSum));
         mSumTextView.setVisibility(View.VISIBLE);
     }
-
-    @Override
-    public void isInputFragmentRunning(boolean status) {
-
-    }
 }

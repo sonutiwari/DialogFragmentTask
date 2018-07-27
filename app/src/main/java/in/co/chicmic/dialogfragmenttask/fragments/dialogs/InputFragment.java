@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import in.co.chicmic.dialogfragmenttask.R;
 import in.co.chicmic.dialogfragmenttask.interfaces.AskForSumInterface;
@@ -71,9 +70,7 @@ public class InputFragment extends Fragment {
     @Override
     public void onAttach(Context pContext) {
         super.onAttach(pContext);
-        if (pContext instanceof InputFragmentListener) {
-            // todo
-        } else {
+        if (!( pContext instanceof InputFragmentListener)) {
             throw new RuntimeException(pContext.toString()
                     + getString(R.string.must_implement));
         }
@@ -86,6 +83,5 @@ public class InputFragment extends Fragment {
 
 
     public interface InputFragmentListener {
-        void isInputFragmentRunning(boolean status);
     }
 }
